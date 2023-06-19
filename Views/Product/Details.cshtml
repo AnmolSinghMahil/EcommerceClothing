@@ -1,0 +1,99 @@
+﻿@model Product
+@using System.Linq
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+@{
+    var loadSmall = ViewData["Small"];
+    var loadXL = ViewData["XtraLarge"];
+    var loadMedium= ViewData["Medium"];
+    var loadLarge = ViewData["Large"];
+}
+<@*a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageSize="@(Model.PageSize)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @loadDisabled">
+    Load More
+</a>*@
+   
+
+
+
+ @*<div class="card mt-2 border border-dark">
+        <img src="Images/NoImage.jpg" class="card-img-top border border-dark" alt="...">
+        <div class="card-body" >
+        <h5 class="card-title">@Model.Name</h5>
+        
+        <p class="card-text">$@Model.Price</p>
+      
+        
+        <a  asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id ="@Model.ID" asp-route-qty="1"  class="btn btn-primary">Add to Cart</a>
+        <a asp-action="Index">Back To List</a>
+         </div>
+</div>*@
+
+@*//////////////////////////////////////////////////////////////Details New Page - Add values dynamically/////////////////////////////////////////////////////////////////////////////////////////////////*@
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            @*src="https://i.imgur.com/Dhebu4F.jpg"*@ 
+                            <div class="text-center p-4"> <img id="main-image" src="~/Images/NoImage.jpg" width="250" /> </div>
+                            <div class="thumbnail text-center"> <img onclick="change_image(this)" src="https://i.imgur.com/Rx7uKd0.jpg" width="70"> <img onclick="change_image(this)" src="https://i.imgur.com/Dhebu4F.jpg" width="70"> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i>@* <button asp-action="Index"><span class="ml-1">Back</span></button>*@ <a asp-action="Index">Back To List</a></div> <i class="fa fa-shopping-cart text-muted"></i>
+                            </div>
+                            <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Orianz</span>
+                                <h5 class="text-uppercase">@Model.Name</h5>
+                                <div class="price d-flex flex-row align-items-center"> <span class="act-price">$@Model.Price</span>
+                                    <div class="ml-2"> <small class="dis-price">$59</small> <span>40% OFF</span> </div>
+                                </div>
+                            </div>
+                           
+                            <p class="about">Shop from a wide range of t-shirt from orianz. Pefect for your everyday use, you could pair it with a stylish pair of jeans or trousers complete the look.</p>
+                            <div class="sizes mt-5">
+                                <h6 class="text-uppercase">Color</h6> 
+                               <a asp-action="Details" asp-route-Color="Blue" asp-route-id="@Model.ID"><label class="radio"> <span>Blue </span> </label> </a>
+                               <a asp-action="Details" asp-route-Color="Black" asp-route-id="@Model.ID"><label class="radio"> <span>Black</span> </label></a> 
+                               <a asp-action="Details" asp-route-Color="White" asp-route-id="@Model.ID"><label class="radio"> <span>White</span> </label></a> 
+                                <a asp-action="Details" asp-route-Color="Grey" asp-route-id="@Model.ID"><label class="radio"> <span>Grey</span> </label></a> 
+                               
+                                @*<label class="radio"> <input type="radio" name="size" value="XXL"> <span>XXL</span> </label>*@
+                            </div>
+                            <div class="sizes mt-5">
+                                <h6 class="text-uppercase">Size</h6> 
+                                 <button  class="radio btn-size" @ViewData["Small"] > <span >S</span></button>
+                                 <button  class="radio btn-size"@loadMedium > <span >M</span></button>
+                                 <button  class="radio btn-size"@loadLarge > <span >L</span></button>
+                                 <button class="radio btn-size" @loadXL > <span >XL</span></button>
+                                @*<label class="radio"> <input type="radio" name="size" value="XXL"> <span>XXL</span> </label>*@
+                            </div>
+                            <div class="cart mt-4 align-items-center">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id ="@Model.ID" asp-route-qty="1"  class="btn btn-primary">Add to Cart</a>
+                                }else
+                                {
+                                      <a class="btn btn-primary" id="login" asp-area="Identity" asp-page="/Account/Login">Add to Cart</a>
+                                }
+                                
+                                <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

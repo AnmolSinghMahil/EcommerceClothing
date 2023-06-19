@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Product";
+}
+
+<div class="d-flex flex-wrap justify-content-between">
+@foreach(var item in Model) {
+   
+        <a asp-action="Details" asp-route-id="@item.ID"> 
+        <div class="card mt-2 border border-dark" style="width: 14rem;">
+        <img src="Images/NoImage.jpg" class="card-img-top border border-dark" style="height:10rem;" alt="...">
+        <div class="card-body" >
+        <h5 class="card-title">@item.Name</h5>
+        @*<p class="card-text">@item.Color</p>
+        <p class="card-text">@item.Size</p>*@
+        <p class="card-text">$@item.Price</p> 
+         </div>
+        </div>
+        </a> 
+}
+</div>
